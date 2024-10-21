@@ -15,8 +15,17 @@ func NewCourseRouter(app *fiber.App) {
 	api.Get("/", func(c *fiber.Ctx) error {
 		return handlerCourse.GetCourseFindAll(c)
 	})
+	api.Get("/school/", func(c *fiber.Ctx) error {
+		return handlerCourse.GetCourseSchoolFindAll(c)
+	})
 	api.Post("/", func(c *fiber.Ctx) error {
 		return handlerCourse.CreateCourse(c)
+	})
+	api.Post("/school/", func(c *fiber.Ctx) error {
+		return handlerCourse.AddSchoolToCourse(c)
+	})
+	api.Delete("/school/:id", func(c *fiber.Ctx) error {
+		return handlerCourse.DeleteCourseSchool(c)
 	})
 	api.Put("/:id", func(c *fiber.Ctx) error {
 		return handlerCourse.UpdateCourse(c)

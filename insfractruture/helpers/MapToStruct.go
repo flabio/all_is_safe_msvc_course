@@ -11,6 +11,7 @@ import (
 	"github.com/safe_msvc_course/usecase/dto"
 )
 
+var fieldCache sync.Map // Caché para almacenar los índices de los campos
 func MapToStructCourse(courseDto *dto.CourseDTO, dataMap map[string]interface{}) {
 	course := dto.CourseDTO{
 		Id:     0,
@@ -38,8 +39,6 @@ func MapToStructLanguage(lenguageDto *dto.LanguageDTO, dataMap map[string]interf
 	}
 	*lenguageDto = lenguage
 }
-
-var fieldCache sync.Map // Caché para almacenar los índices de los campos
 
 // MapToStruct es una función genérica que mapea un map[string]interface{} a cualquier estructura proporcionada
 func MapToStruct(dataMap map[string]interface{}, structPointer interface{}) error {

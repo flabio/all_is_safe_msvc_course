@@ -17,6 +17,16 @@ func NewCourseHandler() global.UICourseGlobal {
 func (h *courseHandler) GetCourseFindAll(c *fiber.Ctx) error {
 	return h.course.GetCourseFindAll(c)
 }
+func (h *courseHandler) GetCourseSchoolFindAll(c *fiber.Ctx) error {
+	return h.course.GetCourseSchoolFindAll(c)
+}
+
+func (h *courseHandler) AddSchoolToCourse(c *fiber.Ctx) error {
+	return h.course.AddSchoolToCourse(c)
+}
+func (h *courseHandler) DeleteCourseSchool(c *fiber.Ctx) error {
+	return h.course.DeleteCourseSchool(c)
+}
 
 func (h *courseHandler) GetCourseFindById(c *fiber.Ctx) error {
 	return h.course.GetCourseFindById(c)

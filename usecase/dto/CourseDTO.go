@@ -14,3 +14,10 @@ type CourseResponseDTO struct {
 	SchoolName string `json:"school_name"`
 	Active     bool   `json:"active"`
 }
+
+type CourseSchoolDTO struct {
+	Id       uint `json:"id"`
+	CourseId uint `json:"course_id"`
+	SchoolId uint `json:"school_id"`
+	Active   bool `json:"active"`
+}

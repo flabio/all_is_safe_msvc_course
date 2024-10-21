@@ -62,6 +62,35 @@ func (c *OpenConnection) DeleteCourse(id uint) (bool, error) {
 	defer c.mux.Unlock()
 	return err == nil, err
 }
+
+// add course and school
+func (c *OpenConnection) AddSchoolToCourse(courseSchool entities.CourseSchool) (entities.CourseSchool, error) {
+	c.mux.Lock()
+	err := c.connection.Create(&courseSchool).Error
+	defer database.CloseConnection()
+	defer c.mux.Unlock()
+	return courseSchool, err
+}
+
+// delete course and school
+func (c *OpenConnection) DeleteCourseSchool(id uint) (bool, error) {
+	c.mux.Lock()
+	var course entities.CourseSchool
+	err := c.connection.Where(utils.DB_EQUAL_ID, id).Delete(&course).Error
+	defer database.CloseConnection()
+	defer c.mux.Unlock()
+	return err == nil, err
+}
+func (c *OpenConnection) GetCourseSchoolFindAll() ([]entities.Course, error) {
+	var courseEntities []entities.Course
+	c.mux.Lock()
+	defer c.mux.Unlock()
+	result := c.connection.Preload("CourseSchools").Find(&courseEntities)
+	//defer database.CloseConnection()
+
+	return courseEntities, result.Error
+}
+
 func (c *OpenConnection) IsDuplicatedCourseName(id uint, name string) (bool, error) {
 	c.mux.Lock()
 	var course entities.Course

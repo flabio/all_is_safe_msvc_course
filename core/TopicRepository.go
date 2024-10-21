@@ -30,6 +30,16 @@ func (c *OpenConnection) GetTopicFindAll() ([]entities.Topic, error) {
 	defer c.mux.Unlock()
 	return topicEntities, result.Error
 }
+
+func (c *OpenConnection) GetTopicByCoursoIdFindAll(courseId uint) ([]entities.Topic, error) {
+	var topicEntities []entities.Topic
+	c.mux.Lock()
+	result := c.connection.Order(utils.DB_ORDER_DESC).Where("course_id=?",courseId).Find(&topicEntities)
+	defer database.CloseConnection()
+	defer c.mux.Unlock()
+	return topicEntities, result.Error
+}
+
 func (c *OpenConnection) GetTopicFindById(id uint) (entities.Topic, error) {
 	var topic entities.Topic
 	c.mux.Lock()

@@ -15,6 +15,9 @@ func NewTopicRouter(app *fiber.App) {
 	api.Get("/", func(c *fiber.Ctx) error {
 		return handlerTopic.GetTopicFindAll(c)
 	})
+	api.Get("/course/:id", func(c *fiber.Ctx) error {
+		return handlerTopic.GetTopicByCoursoIdFindAll(c)
+	})
 	api.Post("/", func(c *fiber.Ctx) error {
 		return handlerTopic.CreateTopic(c)
 	})

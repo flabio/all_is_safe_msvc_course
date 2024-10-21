@@ -39,7 +39,22 @@ func (s *TopicService) GetTopicFindAll(c *fiber.Ctx) error {
 		utils.DATA:   results,
 	})
 }
+func (s *TopicService) GetTopicByCoursoIdFindAll(c *fiber.Ctx) error {
+	id, _ := strconv.Atoi(c.Params("id"))
 
+	results, err := s.UiTopic.GetTopicByCoursoIdFindAll(uint(id))
+
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			utils.STATUS: fiber.StatusBadRequest,
+			utils.DATA:   utils.ERROR_QUERY,
+		})
+	}
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		utils.STATUS: fiber.StatusOK,
+		utils.DATA:   results,
+	})
+}
 func (s *TopicService) GetTopicFindById(c *fiber.Ctx) error {
 	id, _ := strconv.Atoi(c.Params(utils.ID))
 	result, err := s.UiTopic.GetTopicFindById(uint(id))
@@ -101,7 +116,7 @@ func (s *TopicService) UpdateTopic(c *fiber.Ctx) error {
 			utils.MESSAGE: utils.ID_NO_EXIST,
 		})
 	}
-	
+
 	courseDto, msgError := ValidateTopic(uint(id), s, c)
 	if msgError != utils.EMPTY {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{

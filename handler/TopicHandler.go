@@ -17,6 +17,9 @@ func NewTopicHandler() global.UITopicGlobal {
 func (h *topicHandler) GetTopicFindAll(c *fiber.Ctx) error {
 	return h.topic.GetTopicFindAll(c)
 }
+func (h *topicHandler) GetTopicByCoursoIdFindAll(c *fiber.Ctx) error {
+	return h.topic.GetTopicByCoursoIdFindAll(c)
+}
 
 func (h *topicHandler) GetTopicFindById(c *fiber.Ctx) error {
 	return h.topic.GetTopicFindById(c)
