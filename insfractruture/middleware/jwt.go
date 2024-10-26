@@ -1,18 +1,18 @@
 package middleware
 
 import (
+	constants "github.com/flabio/safe_constants"
 	"github.com/gofiber/fiber/v2"
-	"github.com/safe_msvc_course/insfractruture/utils"
 )
 
 func ValidateToken(c *fiber.Ctx) error {
 	// Validate JWT token here
-	token := c.Get(utils.AUTHORIZATION)
-	if len(token) > 7 && token[:7] == utils.BEARER {
+	token := c.Get(constants.AUTHORIZATION)
+	if len(token) > 7 && token[:7] == constants.BEARER {
 		return c.Next()
 	}
 	return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-		utils.STATUS:  fiber.StatusUnauthorized,
-		utils.MESSAGE: utils.TOKEN_INVALID,
+		constants.STATUS:  fiber.StatusUnauthorized,
+		constants.MESSAGE: constants.TOKEN_INVALID,
 	})
 }

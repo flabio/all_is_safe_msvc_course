@@ -3,21 +3,20 @@ package helpers
 import (
 	"strconv"
 
+	constants "github.com/flabio/safe_constants"
 	"github.com/gofiber/fiber/v2"
-
-	"github.com/safe_msvc_course/insfractruture/utils"
 )
 
 func Pagination(c *fiber.Ctx) (int, int) {
 
-	pageParam := c.Query(utils.PAGE)
+	pageParam := c.Query(constants.PAGE)
 	if pageParam == "" {
 		return 1, 0
 	}
-	page, _ := strconv.Atoi(c.Query(utils.PAGE))
+	page, _ := strconv.Atoi(c.Query(constants.PAGE))
 	if page < 1 {
 		return 1, 0
 	}
-	begin := (utils.LiMIT * page) - utils.LiMIT
+	begin := (constants.LiMIT * page) - constants.LiMIT
 	return page, begin
 }

@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"log"
 
+	constants "github.com/flabio/safe_constants"
 	"github.com/gofiber/fiber/v2"
 	"github.com/safe_msvc_course/insfractruture/helpers"
-	"github.com/safe_msvc_course/insfractruture/utils"
 	"github.com/safe_msvc_course/usecase/dto"
 )
 
@@ -17,7 +17,7 @@ func ValidateCourse(id uint, s *CourseService, c *fiber.Ctx) (dto.CourseDTO, str
 		}
 	}()
 	var courseDto dto.CourseDTO
-	var msg string = utils.EMPTY
+	var msg string = constants.EMPTY
 	body := c.Body()
 
 	var dataMap map[string]interface{}
@@ -27,18 +27,18 @@ func ValidateCourse(id uint, s *CourseService, c *fiber.Ctx) (dto.CourseDTO, str
 	}
 
 	msgValid := helpers.ValidateField(dataMap)
-	if msgValid != utils.EMPTY {
+	if msgValid != constants.EMPTY {
 		return dto.CourseDTO{}, msgValid
 	}
 
 	helpers.MapToStruct(dataMap, &courseDto)
 	msgReq := helpers.ValidateRequired(courseDto)
-	if msgReq != utils.EMPTY {
+	if msgReq != constants.EMPTY {
 		return dto.CourseDTO{}, msgReq
 	}
 	IsNameExist, _ := s.UiCourse.IsDuplicatedCourseName(courseDto.Id, courseDto.Name)
 	if IsNameExist {
-		msg = utils.NAME_ALREADY_EXIST
+		msg = constants.NAME_ALREADY_EXIST
 	}
 	return courseDto, msg
 }
@@ -50,7 +50,7 @@ func ValidateCourseWitnSchool(id uint, s *CourseService, c *fiber.Ctx) (dto.Cour
 		}
 	}()
 	var courseDto dto.CourseSchoolDTO
-	var msg string = utils.EMPTY
+	var msg string = constants.EMPTY
 	body := c.Body()
 
 	var dataMap map[string]interface{}
@@ -60,13 +60,13 @@ func ValidateCourseWitnSchool(id uint, s *CourseService, c *fiber.Ctx) (dto.Cour
 	}
 
 	msgValid := helpers.ValidateCourseSchoolField(dataMap)
-	if msgValid != utils.EMPTY {
+	if msgValid != constants.EMPTY {
 		return dto.CourseSchoolDTO{}, msgValid
 	}
 
 	helpers.MapToStruct(dataMap, &courseDto)
 	msgReq := helpers.ValidateCourseWithSchoolRequired(courseDto)
-	if msgReq != utils.EMPTY {
+	if msgReq != constants.EMPTY {
 		return dto.CourseSchoolDTO{}, msgReq
 	}
 	return courseDto, msg

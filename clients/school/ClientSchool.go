@@ -4,16 +4,16 @@ import (
 	"net/http"
 	"strconv"
 
+	constants "github.com/flabio/safe_constants"
 	"github.com/gofiber/fiber/v2"
-	"github.com/safe_msvc_course/insfractruture/utils"
 )
 
 func MsvcSchoolFindId(id uint, c *fiber.Ctx) (SchoolClient, string) {
-	data, err := http.NewRequest(utils.GET, utils.MSVC_SCHOOL_URL+"/"+strconv.Itoa(int(id)), nil)
+	data, err := http.NewRequest(constants.GET, constants.MSVC_SCHOOL_URL+"/"+strconv.Itoa(int(id)), nil)
 	if err != nil {
 		return SchoolClient{}, err.Error()
 	}
-	data.Header.Set(utils.AUTHORIZATION, c.Get(utils.AUTHORIZATION))
+	data.Header.Set(constants.AUTHORIZATION, c.Get(constants.AUTHORIZATION))
 	school, msg := DataSchoolClient(data, err)
 	return school, msg
 }
@@ -24,4 +24,4 @@ func MsvcSchoolFindId(id uint, c *fiber.Ctx) (SchoolClient, string) {
 // Return the requested data or an error message.
 // For example:
 // func MsvcSchoolFindByProviderNumber(id uint, providerNumber string)(School, string){
-//     data,err:=http.NewRequest(utils.GET, utils.MSVC_SCHOOL_URL+"/"+strconv
+//     data,err:=http.NewRequest(constants.GET, constants.MSVC_SCHOOL_URL+"/"+strconv

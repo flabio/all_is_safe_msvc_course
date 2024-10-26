@@ -7,7 +7,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/safe_msvc_course/insfractruture/utils"
+	constants "github.com/flabio/safe_constants"
 	"github.com/safe_msvc_course/usecase/dto"
 )
 
@@ -15,8 +15,8 @@ var fieldCache sync.Map // Caché para almacenar los índices de los campos
 func MapToStructCourse(courseDto *dto.CourseDTO, dataMap map[string]interface{}) {
 	course := dto.CourseDTO{
 		Id:     0,
-		Name:   dataMap[utils.NAME].(string),
-		Active: dataMap[utils.ACTIVE].(bool),
+		Name:   dataMap[constants.NAME].(string),
+		Active: dataMap[constants.ACTIVE].(bool),
 	}
 	*courseDto = course
 }
@@ -24,18 +24,18 @@ func MapToStructCourse(courseDto *dto.CourseDTO, dataMap map[string]interface{})
 func MapToStructTopic(topicDto *dto.TopicDTO, dataMap map[string]interface{}) {
 	topic := dto.TopicDTO{
 		Id:        0,
-		Title:     dataMap[utils.TITLE].(string),
-		TimeHours: dataMap[utils.TIME_HOURS].(string),
-		CourseId:  uint(dataMap[utils.COURSE_ID].(float64)),
-		Active:    dataMap[utils.ACTIVE].(bool),
+		Title:     dataMap[constants.TITLE].(string),
+		TimeHours: dataMap[constants.TIME_HOURS].(string),
+		CourseId:  uint(dataMap[constants.COURSE_ID].(float64)),
+		Active:    dataMap[constants.ACTIVE].(bool),
 	}
 	*topicDto = topic
 }
 func MapToStructLanguage(lenguageDto *dto.LanguageDTO, dataMap map[string]interface{}) {
 	lenguage := dto.LanguageDTO{
 		Id:     0,
-		Name:   dataMap[utils.NAME].(string),
-		Active: dataMap[utils.ACTIVE].(bool),
+		Name:   dataMap[constants.NAME].(string),
+		Active: dataMap[constants.ACTIVE].(bool),
 	}
 	*lenguageDto = lenguage
 }
