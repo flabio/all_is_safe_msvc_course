@@ -69,5 +69,10 @@ func ValidateCourseWitnSchool(id uint, s *CourseService, c *fiber.Ctx) (dto.Cour
 	if msgReq != constants.EMPTY {
 		return dto.CourseSchoolDTO{}, msgReq
 	}
+	exist, err := s.UiCourse.GetCourseFindByIdSchoolAndIdCourse(courseDto.SchoolId, courseDto.CourseId)
+	log.Println(exist, err)
+	if err != nil || exist {
+		msg = "The course is already assigned to the school"
+	}
 	return courseDto, msg
 }

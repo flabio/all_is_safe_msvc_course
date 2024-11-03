@@ -21,7 +21,6 @@ type CourseService struct {
 func NewCourseService() global.UICourseGlobal {
 	return &CourseService{UiCourse: core.NewCourseRepository()}
 }
-
 func (s *CourseService) GetCourseFindAll(c *fiber.Ctx) error {
 	results, err := s.UiCourse.GetCourseFindAll()
 	if err != nil {
@@ -30,17 +29,14 @@ func (s *CourseService) GetCourseFindAll(c *fiber.Ctx) error {
 			utils.DATA:   utils.ERROR_QUERY,
 		})
 	}
-
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		utils.STATUS: fiber.StatusOK,
 		utils.DATA:   results,
 	})
 }
-
 func (s *CourseService) GetCourseFindById(c *fiber.Ctx) error {
 	id, _ := strconv.Atoi(c.Params(utils.ID))
 	result, err := s.UiCourse.GetCourseFindById(uint(id))
-
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			utils.STATUS: fiber.StatusBadRequest,
@@ -60,7 +56,6 @@ func (s *CourseService) GetCourseFindById(c *fiber.Ctx) error {
 }
 func (s *CourseService) CreateCourse(c *fiber.Ctx) error {
 	var courseCreate entities.Course
-
 	dataDto, msgError := ValidateCourse(0, s, c)
 	if msgError != utils.EMPTY {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
@@ -82,7 +77,6 @@ func (s *CourseService) CreateCourse(c *fiber.Ctx) error {
 		utils.DATA:    result,
 	})
 }
-
 func (s *CourseService) UpdateCourse(c *fiber.Ctx) error {
 	var updatedCourse entities.Course
 	id, _ := strconv.Atoi(c.Params(utils.ID))
@@ -99,7 +93,6 @@ func (s *CourseService) UpdateCourse(c *fiber.Ctx) error {
 			utils.MESSAGE: utils.ID_NO_EXIST,
 		})
 	}
-
 	courseDto, msgError := ValidateCourse(uint(id), s, c)
 	if msgError != utils.EMPTY {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
@@ -159,7 +152,6 @@ func (s *CourseService) GetCourseSchoolFindAll(c *fiber.Ctx) error {
 			utils.DATA:   utils.ERROR_QUERY,
 		})
 	}
-
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		utils.STATUS: fiber.StatusOK,
 		utils.DATA:   results,
@@ -167,7 +159,6 @@ func (s *CourseService) GetCourseSchoolFindAll(c *fiber.Ctx) error {
 }
 func (s *CourseService) AddSchoolToCourse(c *fiber.Ctx) error {
 	var courseCreate entities.CourseSchool
-
 	dataDto, msgError := ValidateCourseWitnSchool(0, s, c)
 	if msgError != utils.EMPTY {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
@@ -192,7 +183,6 @@ func (s *CourseService) AddSchoolToCourse(c *fiber.Ctx) error {
 
 func (s *CourseService) DeleteCourseSchool(c *fiber.Ctx) error {
 	id, _ := strconv.Atoi(c.Params(utils.ID))
-
 	result, err := s.UiCourse.DeleteCourseSchool(uint(id))
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
