@@ -10,13 +10,14 @@ import (
 )
 
 func NewLanguageRepository() uicore.UILanguage {
+
 	var (
 		_OPEN *OpenConnection
 		_ONCE sync.Once
 	)
 	_ONCE.Do(func() {
 		_OPEN = &OpenConnection{
-			connection: database.DatabaseConnection(),
+			connection: database.GetDatabaseInstance(),
 		}
 	})
 	return _OPEN

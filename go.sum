@@ -23,6 +23,8 @@ github.com/flabio/safe_constants v1.1.0 h1:0DBeVwymMBJHn3cAhJyumKg8j7zqviCfUbY4E
 github.com/flabio/safe_constants v1.1.0/go.mod h1:6Gps5IgSi4RQlnkaKEwqPp7ysJVi9oeWnNNsEbnyUyU=
 github.com/flabio/safe_constants v1.1.3 h1:eVw1ZjianbgNI/07BZpcab0xsz0WuFRW8teSqNvKASQ=
 github.com/flabio/safe_constants v1.1.3/go.mod h1:6Gps5IgSi4RQlnkaKEwqPp7ysJVi9oeWnNNsEbnyUyU=
+github.com/flabio/safe_var_db v0.0.0-20240826145800-2fe3be730a97 h1:TIyRlrKHVTYuv5yzaSPEls+S8oby5lasizG+H/38Sug=
+github.com/flabio/safe_var_db v0.0.0-20240826145800-2fe3be730a97/go.mod h1:6QAQ8XW1ATxPAxvt/Vfxg6uoVWqCQSJVkA5eDjA5+UI=
 github.com/gofiber/fiber/v2 v2.52.5 h1:tWoP1MJQjGEe4GB5TUGOi7P2E0ZMMRx5ZTG4rT+yGMo=
 github.com/gofiber/fiber/v2 v2.52.5/go.mod h1:KEOE+cXMhXG0zHc9d8+E38hoX+ZN7bhOtgeF2oT6jrQ=
 github.com/google/uuid v1.5.0 h1:1p67kYwdtXjb0gL0BPiP1Av9wiZPo5A8z2cWkTZ+eyU=

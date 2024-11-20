@@ -11,6 +11,7 @@ func main() {
 	routers.NewCourseRouter(app)
 	routers.NewTopicRouter(app)
 	routers.NewLanguageRouter(app)
+	routers.NewTypeCourseRouter(app)
 	app.Listen(":3007")
 
 }

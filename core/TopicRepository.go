@@ -16,7 +16,7 @@ func NewTopicRepository() uicore.UITopicCore {
 	)
 	_ONCE.Do(func() {
 		_OPEN = &OpenConnection{
-			connection: database.DatabaseConnection(),
+			connection: database.GetDatabaseInstance(),
 		}
 	})
 	return _OPEN

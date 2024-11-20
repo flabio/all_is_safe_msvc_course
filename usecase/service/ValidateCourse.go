@@ -76,3 +76,36 @@ func ValidateCourseWitnSchool(id uint, s *CourseService, c *fiber.Ctx) (dto.Cour
 	}
 	return courseDto, msg
 }
+
+func ValidateTypeCourse(id uint, s *TypeCourseService, c *fiber.Ctx) (dto.CourseDTO, string) {
+	defer func() {
+		if r := recover(); r != nil {
+			log.Println("controlando el panic", r)
+		}
+	}()
+	var courseDto dto.CourseDTO
+	var msg string = constants.EMPTY
+	body := c.Body()
+
+	var dataMap map[string]interface{}
+	err := json.Unmarshal([]byte(body), &dataMap)
+	if err != nil {
+		msg = err.Error()
+	}
+
+	msgValid := helpers.ValidateField(dataMap)
+	if msgValid != constants.EMPTY {
+		return dto.CourseDTO{}, msgValid
+	}
+
+	helpers.MapToStruct(dataMap, &courseDto)
+	msgReq := helpers.ValidateRequired(courseDto)
+	if msgReq != constants.EMPTY {
+		return dto.CourseDTO{}, msgReq
+	}
+	IsNameExist, _ := s.UiTypeCourse.IsDuplicatedTypeCourseName(courseDto.Id, courseDto.Name)
+	if IsNameExist {
+		msg = constants.NAME_ALREADY_EXIST
+	}
+	return courseDto, msg
+}

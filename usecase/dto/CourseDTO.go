@@ -1,10 +1,10 @@
 package dto
 
 type CourseDTO struct {
-	Id       uint   `json:"id"`
-	Name     string `json:"name"`
-	SchoolId uint   `json:"school_id"`
-	Active   bool   `json:"active"`
+	Id           uint   `json:"id"`
+	Name         string `json:"name"`
+	TypeCourseId uint   `json:"type_course_id"`
+	Active       bool   `json:"active"`
 }
 
 type CourseResponseDTO struct {
