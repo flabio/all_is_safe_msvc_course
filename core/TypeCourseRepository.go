@@ -29,7 +29,6 @@ func (db *OpenConnection) GetTypeCourseFindAll() ([]entities.TypeCourse, error) 
 	result := db.connection.Order(var_db.DB_ORDER_DESC).Find(&typeCourse)
 	return typeCourse, result.Error
 }
-
 func (db *OpenConnection) GetTypeCourseFindById(id uint) (entities.TypeCourse, error) {
 	var state entities.TypeCourse
 	db.mux.Lock()
@@ -54,7 +53,6 @@ func (db *OpenConnection) UpdateTypeCourse(id uint, state entities.TypeCourse) (
 func (db *OpenConnection) DeleteTypeCourse(id uint) (bool, error) {
 	db.mux.Lock()
 	defer db.mux.Unlock()
-
 	result := db.connection.Where(var_db.DB_EQUAL_ID, id).Delete(&entities.TypeCourse{})
 	return result.RowsAffected > 0, result.Error
 }

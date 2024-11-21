@@ -67,15 +67,15 @@ func DatabaseConnection() (*gorm.DB, error) {
 }
 
 // CloseConnection cierra la conexión a la base de datos
-func CloseConnection() {
-	db := GetDatabaseInstance()
-	dbSQL, err := db.DB()
-	if err != nil {
-		log.Println("Error al obtener la instancia de *sql.DB:", err)
-		return
-	}
-	err = dbSQL.Close()
-	if err != nil {
-		log.Println("Error al cerrar la conexión a la base de datos:", err)
-	}
-}
+// func CloseConnection() {
+// 	db := GetDatabaseInstance()
+// 	dbSQL, err := db.DB()
+// 	if err != nil {
+// 		log.Println("Error al obtener la instancia de *sql.DB:", err)
+// 		return
+// 	}
+// 	err = dbSQL.Close()
+// 	if err != nil {
+// 		log.Println("Error al cerrar la conexión a la base de datos:", err)
+// 	}
+// }

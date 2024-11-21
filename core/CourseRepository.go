@@ -25,49 +25,48 @@ func NewCourseRepository() uicore.UICourseCore {
 func (c *OpenConnection) GetCourseFindAll() ([]entities.Course, error) {
 	var courseEntities []entities.Course
 	c.mux.Lock()
-	result := c.connection.Order(constants.DB_ORDER_DESC).Find(&courseEntities)
-	defer database.CloseConnection()
 	defer c.mux.Unlock()
+
+	result := c.connection.Preload("TypeCourse").Order(constants.DB_ORDER_DESC).Find(&courseEntities)
+	clese, _ := result.DB()
+	defer clese.Close()
 	return courseEntities, result.Error
 }
 func (c *OpenConnection) GetCourseFindById(id uint) (entities.Course, error) {
 	var course entities.Course
 	c.mux.Lock()
-	result := c.connection.Where(constants.DB_EQUAL_ID, id).Find(&course)
-	defer database.CloseConnection()
 	defer c.mux.Unlock()
+	result := c.connection.Where(constants.DB_EQUAL_ID, id).Find(&course)
 	return course, result.Error
 }
 
 func (c *OpenConnection) CreateCourse(course entities.Course) (entities.Course, error) {
 	c.mux.Lock()
-	err := c.connection.Create(&course).Error
-	defer database.CloseConnection()
 	defer c.mux.Unlock()
+	err := c.connection.Create(&course).Error
 	return course, err
 }
 func (c *OpenConnection) UpdateCourse(id uint, course entities.Course) (entities.Course, error) {
 	c.mux.Lock()
-	err := c.connection.Where(constants.DB_EQUAL_ID, id).Updates(&course).Error
-	defer database.CloseConnection()
 	defer c.mux.Unlock()
+
+	err := c.connection.Where(constants.DB_EQUAL_ID, id).Updates(&course).Error
 	return course, err
 }
 
 func (c *OpenConnection) DeleteCourse(id uint) (bool, error) {
 	c.mux.Lock()
+	defer c.mux.Unlock()
 	var course entities.Course
 	err := c.connection.Where(constants.DB_EQUAL_ID, id).Delete(&course).Error
-	defer database.CloseConnection()
-	defer c.mux.Unlock()
 	return err == nil, err
 }
 
 // add course and school
 func (c *OpenConnection) AddSchoolToCourse(courseSchool entities.CourseSchool) (entities.CourseSchool, error) {
 	c.mux.Lock()
-	err := c.connection.Create(&courseSchool).Error
 	defer c.mux.Unlock()
+	err := c.connection.Create(&courseSchool).Error
 	return courseSchool, err
 }
 
@@ -84,9 +83,9 @@ func (c *OpenConnection) GetCourseFindByIdSchoolAndIdCourse(idschool uint, idcou
 // delete course and school
 func (c *OpenConnection) DeleteCourseSchool(id uint) (bool, error) {
 	c.mux.Lock()
+	defer c.mux.Unlock()
 	var course entities.CourseSchool
 	err := c.connection.Where(constants.DB_EQUAL_ID, id).Delete(&course).Error
-	defer c.mux.Unlock()
 	return err == nil, err
 }
 func (c *OpenConnection) GetCourseSchoolFindAll() ([]entities.Course, error) {
