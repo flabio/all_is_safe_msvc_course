@@ -11,4 +11,5 @@ type Course struct {
 	CreatedAt     time.Time      `gorm:"<-:created_at" json:"created_at"`
 	UpdatedAt     *time.Time     `gorm:"type:TIMESTAMP(6)" json:"updated_at"`
 	CourseSchools []CourseSchool `gorm:"foreignkey:CourseId" json:"course_schools"`
+	Topic         *[]Topic       `gorm:"null" json:"topic"`
 }

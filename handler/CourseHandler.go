@@ -31,7 +31,9 @@ func (h *courseHandler) DeleteCourseSchool(c *fiber.Ctx) error {
 func (h *courseHandler) GetCourseFindById(c *fiber.Ctx) error {
 	return h.course.GetCourseFindById(c)
 }
-
+func (h *courseHandler) GetCourseFindCourseByIdSchool(c *fiber.Ctx) error {
+	return h.course.GetCourseFindCourseByIdSchool(c)
+}
 func (h *courseHandler) CreateCourse(c *fiber.Ctx) error {
 	return h.course.CreateCourse(c)
 }

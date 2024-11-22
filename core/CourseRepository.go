@@ -26,10 +26,7 @@ func (c *OpenConnection) GetCourseFindAll() ([]entities.Course, error) {
 	var courseEntities []entities.Course
 	c.mux.Lock()
 	defer c.mux.Unlock()
-
-	result := c.connection.Preload("TypeCourse").Order(constants.DB_ORDER_DESC).Find(&courseEntities)
-	clese, _ := result.DB()
-	defer clese.Close()
+	result := c.connection.Preload("TypeCourse").Preload("Topic").Order(constants.DB_ORDER_DESC).Find(&courseEntities)
 	return courseEntities, result.Error
 }
 func (c *OpenConnection) GetCourseFindById(id uint) (entities.Course, error) {
@@ -78,6 +75,13 @@ func (c *OpenConnection) GetCourseFindByIdSchoolAndIdCourse(idschool uint, idcou
 		return false, query.Error
 	}
 	return true, query.Error
+}
+func (c *OpenConnection) GetCourseFindCourseByIdSchool(idschool uint) ([]entities.CourseSchool, error) {
+	var courseSchool []entities.CourseSchool
+	c.mux.Lock()
+	defer c.mux.Unlock()
+	query := c.connection.Preload("Course.TypeCourse").Preload("Course.Topic").Where("school_id", idschool).Find(&courseSchool)
+	return courseSchool, query.Error
 }
 
 // delete course and school

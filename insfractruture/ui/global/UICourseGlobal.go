@@ -7,6 +7,7 @@ type UICourseGlobal interface {
 	GetCourseSchoolFindAll(c *fiber.Ctx) error
 	AddSchoolToCourse(c *fiber.Ctx) error
 	GetCourseFindById(c *fiber.Ctx) error
+	GetCourseFindCourseByIdSchool(c *fiber.Ctx) error
 	CreateCourse(c *fiber.Ctx) error
 	UpdateCourse(c *fiber.Ctx) error
 	DeleteCourse(c *fiber.Ctx) error

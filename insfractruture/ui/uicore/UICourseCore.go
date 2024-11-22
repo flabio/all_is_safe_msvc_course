@@ -13,6 +13,7 @@ type UICourseCore interface {
 	UpdateCourse(id uint, course entities.Course) (entities.Course, error)
 	DeleteCourse(id uint) (bool, error)
 	AddSchoolToCourse(courseSchool entities.CourseSchool) (entities.CourseSchool, error)
+	GetCourseFindCourseByIdSchool(idschool uint) ([]entities.CourseSchool, error)
 	GetCourseFindByIdSchoolAndIdCourse(idschool uint, idcourse uint) (bool, error)
 	DeleteCourseSchool(id uint) (bool, error)
 }

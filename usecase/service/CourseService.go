@@ -144,6 +144,20 @@ func (s *CourseService) DeleteCourse(c *fiber.Ctx) error {
 }
 
 // course with school
+func (s *CourseService) GetCourseFindCourseByIdSchool(c *fiber.Ctx) error {
+	id, _ := strconv.Atoi(c.Params(utils.ID))
+	result, err := s.UiCourse.GetCourseFindCourseByIdSchool(uint(id))
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			utils.STATUS: fiber.StatusBadRequest,
+			utils.DATA:   utils.ERROR_QUERY,
+		})
+	}
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		utils.STATUS: fiber.StatusOK,
+		utils.DATA:   result,
+	})
+}
 func (s *CourseService) GetCourseSchoolFindAll(c *fiber.Ctx) error {
 	results, err := s.UiCourse.GetCourseSchoolFindAll()
 	if err != nil {
